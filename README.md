@@ -6,7 +6,7 @@
 [![](https://godoc.org/github.com/vardius/pubsub?status.svg)](http://godoc.org/github.com/vardius/pubsub)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vardius/pubsub/blob/master/LICENSE.md)
 
-pubsub - Simple pubsub signals handler with callback
+pubsub - gRPC message-oriented middleware on top of message-bus, event ingestion and delivery system.
 
 <details>
   <summary>Table of Content</summary>
