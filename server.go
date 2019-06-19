@@ -24,6 +24,7 @@ func (s *server) Publish(ctx context.Context, r *pubsub_proto.PublishRequest) (*
 }
 
 // Subscribe subscribes to a topic
+// Will unsubscribe when stream.Send returns error
 func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto.MessageBus_SubscribeServer) error {
 	done := make(chan error)
 	defer close(done)
@@ -43,10 +44,6 @@ func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto
 	err := <-done
 
 	s.bus.Unsubscribe(r.GetTopic(), handler)
-
-	if err == nil {
-		return nil
-	}
 
 	return err
 }
