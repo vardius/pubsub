@@ -10,18 +10,20 @@ pubsub - gRPC message-oriented middleware on top of [message-bus](https://github
 
 <details>
   <summary>Table of Content</summary>
-
 <!-- toc -->
-
 - [About](#about)
 - [How to use](#how-to-use)
   - [Docker](#docker)
     - [How to use this image](#how-to-use-this-image)
     - [Environment Variables](#environment-variables)
     - [Makefile](#makefile)
-  - [Client](#client) - [Use in your Go project](#use-in-your-go-project)
+  - [Client](https://github.com/vardius/pubsub/tree/master/proto#client)
+  	- [Use in your Go project](https://github.com/vardius/pubsub/tree/master/proto#use-in-your-go-project)
+	  - [Publish](https://github.com/vardius/pubsub/tree/master/proto#publish)
+	  - [Subscribe](https://github.com/vardius/pubsub/tree/master/proto#subscribe)
+  - [Protocol Buffers](https://github.com/vardius/pubsub/tree/master/proto#protocol-buffers)
+	- [Generating client and server code](https://github.com/vardius/pubsub/tree/master/proto#generating-client-and-server-code)
 <!-- tocstop -->
-
 </details>
 
 # ABOUT
@@ -36,9 +38,6 @@ Have problems, bugs, feature ideas?
 We are using the github [issue tracker](https://github.com/vardius/pubsub/issues) to manage them.
 
 # HOW TO USE
-
-1. [GoDoc](http://godoc.org/github.com/vardius/pubsub)
-2. [Examples](http://godoc.org/github.com/vardius/pubsub#pkg-examples)
 
 ## Docker
 
@@ -79,108 +78,7 @@ docker-release                 Docker release - build, tag and push the containe
 
 ## Client
 
-### Use in your Go project
-
-#### Publish
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	"time"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/keepalive"
-	pubsub_proto "github.com/vardius/pubsub/proto"
-)
-
-func main() {
-    host:= "0.0.0.0"
-    port:= 9090
-    ctx := context.Background()
-
-	opts := []grpc.DialOption{
-		grpc.WithInsecure(),
-		grpc.WithKeepaliveParams(keepalive.ClientParameters{
-			Time:                10 * time.Second, // send pings every 10 seconds if there is no activity
-			Timeout:             20 * time.Second, // wait 20 second for ping ack before considering the connection dead
-			PermitWithoutStream: true,             // send pings even without active streams
-		}),
-    }
-
-	conn, err := grpc.DialContext(ctx, fmt.Sprintf("%s:%d", host, port), opts...)
-	if err != nil {
-		os.Exit(1)
-    }
-    defer conn.Close()
-
-	client := pubsub_proto.NewMessageBusClient(pubsubConn)
-
-    client.Publish(ctx, &pubsub_proto.PublishRequest{
-		Topic:   "my-topic",
-		Payload: []byte("Hello you!"),
-    })
-}
-```
-
-#### Subscribe
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	"time"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/keepalive"
-	pubsub_proto "github.com/vardius/pubsub/proto"
-)
-
-func main() {
-    host:= "0.0.0.0"
-    port:= 9090
-    ctx := context.Background()
-
-	opts := []grpc.DialOption{
-		grpc.WithInsecure(),
-		grpc.WithKeepaliveParams(keepalive.ClientParameters{
-			Time:                10 * time.Second, // send pings every 10 seconds if there is no activity
-			Timeout:             20 * time.Second, // wait 20 second for ping ack before considering the connection dead
-			PermitWithoutStream: true,             // send pings even without active streams
-		}),
-    }
-
-	conn, err := grpc.DialContext(ctx, fmt.Sprintf("%s:%d", host, port), opts...)
-	if err != nil {
-		os.Exit(1)
-    }
-    defer conn.Close()
-
-	client := pubsub_proto.NewMessageBusClient(pubsubConn)
-
-	stream, err := client.Subscribe(ctx, &pubsub_proto.SubscribeRequest{
-		Topic: "my-topic",
-	})
-	if err != nil {
-		os.Exit(1)
-	}
-
-	for {
-		resp, err := stream.Recv()
-		if err != nil {
-		    os.Exit(1) // stream closed or error
-		}
-
-		fmt.Println(resp.GetPayload())
-	}
-}
-```
+See [proto package](https://github.com/vardius/pubsub/blob/master/proto) for details.
 
 ## License
 
