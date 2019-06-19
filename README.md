@@ -177,7 +177,7 @@ func main() {
 		    os.Exit(1) // stream closed or error
 		}
 
-		fn(ctx, resp.GetPayload())
+		fmt.Println(resp.GetPayload())
 	}
 }
 ```
