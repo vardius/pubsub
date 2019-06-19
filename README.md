@@ -10,6 +10,7 @@ pubsub - gRPC message-oriented middleware on top of [message-bus](https://github
 
 <details>
   <summary>Table of Content</summary>
+
 <!-- toc -->
 - [About](#about)
 - [How to use](#how-to-use)

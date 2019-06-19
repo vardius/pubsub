@@ -7,6 +7,7 @@ Package proto contains protocol buffer code to populate
 
 <details>
   <summary>Table of Content</summary>
+
 <!-- toc -->
 - [How to use](#how-to-use)
   - [Client](https://github.com/vardius/pubsub/tree/master/proto#client)
