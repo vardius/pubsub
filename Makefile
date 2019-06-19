@@ -15,9 +15,9 @@ version: ## Show version
 	@echo $(VERSION)
 
 docker-build: ## Build given container. Example: `make docker-build`
-	docker build -f Dockerfile --no-cache --build-arg -t pubsub .
+	docker build -f Dockerfile --no-cache -t pubsub .
 
-docker-run: ## Run container on given port. Example: `make docker-run PORT=3000`
+docker-run: ## Run container on given port. Example: `make docker-run PORT=9090`
 	docker run -i -t --rm -p=$(PORT):$(PORT) --name="pubsub" pubsub
 
 docker-stop: ## Stop docker container. Example: `make docker-stop`
