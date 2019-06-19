@@ -28,11 +28,11 @@ docker-rm: docker-stop ## Stop and then remove docker container. Example: `make 
 
 docker-publish: docker-publish-latest docker-publish-version ## Docker publish. Example: `make docker-publish REGISTRY=https://your-registry.com`
 
-docker-publish-latest: tag-latest
+docker-publish-latest: docker-tag-latest
 	@echo 'publish latest to $(REGISTRY)'
 	docker push $(REGISTRY)/pubsub:latest
 
-docker-publish-version: tag-version
+docker-publish-version: docker-tag-version
 	@echo 'publish $(VERSION) to $(REGISTRY)'
 	docker push $(REGISTRY)/pubsub:$(VERSION)
 
