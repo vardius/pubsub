@@ -38,7 +38,9 @@ func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto
 	errCh := make(chan error)
 	defer close(errCh)
 
-	handler := func(_ context.Context, payload Payload) {
+	handler := func(ctx context.Context, payload Payload) {
+		s.logger.Debug(ctx, "gRPC Server|Subscribe] %s %s", r.GetTopic(), payload)
+
 		err := stream.Send(&pubsub_proto.SubscribeResponse{
 			Payload: payload,
 		})
