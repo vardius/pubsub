@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/vardius/golog"
@@ -24,14 +25,18 @@ func (s *server) Publish(ctx context.Context, r *pubsub_proto.PublishRequest) (*
 
 	s.bus.Publish(ctx, r.GetTopic(), r.GetPayload())
 
-	return new(empty.Empty), ctx.Err()
+	if ctx.Err() != nil {
+		return nil, ctx.Err()
+	}
+
+	return new(empty.Empty), nil
 }
 
 // Subscribe subscribes to a topic
 // Will unsubscribe when stream.Send returns error
 func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto.MessageBus_SubscribeServer) error {
-	done := make(chan error)
-	defer close(done)
+	errCh := make(chan error)
+	defer close(errCh)
 
 	handler := func(_ context.Context, payload Payload) {
 		err := stream.Send(&pubsub_proto.SubscribeResponse{
@@ -39,7 +44,7 @@ func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto
 		})
 
 		if err != nil {
-			done <- err
+			errCh <- err
 		}
 	}
 
@@ -49,11 +54,17 @@ func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto
 
 	s.bus.Subscribe(r.GetTopic(), handler)
 
-	err := <-done
-
-	s.logger.Info(ctx, "gRPC Server|Unsubscribe] %s %v", r.GetTopic(), err)
+	err := <-errCh
 
 	s.bus.Unsubscribe(r.GetTopic(), handler)
+
+	if err == io.EOF {
+		s.logger.Info(ctx, "gRPC Server|Unsubscribe] %s - Stream closed, no more input is available", r.GetTopic())
+
+		return nil
+	}
+
+	s.logger.Info(ctx, "gRPC Server|Unsubscribe] %s - %s", r.GetTopic(), err.Error())
 
 	return err
 }
