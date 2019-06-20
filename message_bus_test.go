@@ -24,7 +24,7 @@ func TestSubscribePublish(t *testing.T) {
 		c <- nil
 	})
 
-	bus.Publish("topic", ctx, []byte("ok"))
+	bus.Publish(ctx, "topic", []byte("ok"))
 
 	for {
 		select {
@@ -52,7 +52,7 @@ func TestUnsubscribe(t *testing.T) {
 	bus.Subscribe("topic", handler)
 	bus.Unsubscribe("topic", handler)
 
-	bus.Publish("topic", ctx, []byte("ok"))
+	bus.Publish(ctx, "topic", []byte("ok"))
 
 	for {
 		select {

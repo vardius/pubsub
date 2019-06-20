@@ -14,7 +14,7 @@ type Payload []byte
 
 // MessageBus allows to subscribe/dispatch messages
 type MessageBus interface {
-	Publish(topic string, ctx context.Context, payload Payload)
+	Publish(ctx context.Context, topic string, payload Payload)
 	Subscribe(topic string, fn Handler) error
 	Unsubscribe(topic string, fn Handler) error
 	Close(topic string)
@@ -29,7 +29,7 @@ type loggableMessageBus struct {
 	bus messagebus.MessageBus
 }
 
-func (b *loggableMessageBus) Publish(topic string, ctx context.Context, p Payload) {
+func (b *loggableMessageBus) Publish(ctx context.Context, topic string, p Payload) {
 	b.bus.Publish(topic, ctx, p)
 }
 
