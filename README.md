@@ -40,7 +40,7 @@ We are using the github [issue tracker](https://github.com/vardius/pubsub/issues
 
 # HOW TO USE
 
-## Docker
+## [Docker](https://hub.docker.com/r/vardius/pubsub)
 
 ### How to use this image
 
