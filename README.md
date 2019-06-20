@@ -9,7 +9,7 @@
 pubsub - gRPC message-oriented middleware on top of [message-bus](https://github.com/vardius/message-bus), event ingestion and delivery system.
 
 <details>
-  <summary>Table of Content</summary>
+  <summary>Table of Contents</summary>
 
 <!-- toc -->
 - [About](#about)
