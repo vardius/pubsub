@@ -83,9 +83,10 @@ This is optional variable, Verbose level. -1 = Disabled, 0 = Critical, 1 = Error
 ### Makefile
 
 ```sh
+➜  pubsub git:(master) make help
 version                        Show version
 docker-build                   Build given container. Example: `make docker-build`
-docker-run                     Run container on given port. Example: `make docker-run PORT=3000`
+docker-run                     Run container on given port. Example: `make docker-run PORT=9090`
 docker-stop                    Stop docker container. Example: `make docker-stop`
 docker-rm                      Stop and then remove docker container. Example: `make docker-rm`
 docker-publish                 Docker publish. Example: `make docker-publish REGISTRY=https://your-registry.com`
