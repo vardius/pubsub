@@ -78,7 +78,7 @@ This is optional variable, wait 20 second (default) for the ping ack before assu
 
 #### `LOG_VERBOSE_LEVEL` (int)
 
-This is optional variable, Verbose level. -1 = Disabled, 0 = Critical, 1 = Error, 2 = Warning, 3 = Info, 4 = Debug. Default 4.
+This is optional variable, Verbose level. -1 = Disabled, 0 = Critical, 1 = Error, 2 = Warning, 3 = Info, 4 = Debug. Default 3 (Info).
 
 ### Makefile
 
