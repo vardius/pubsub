@@ -10,6 +10,7 @@ import (
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	"github.com/vardius/golog"
 	pubsub_proto "github.com/vardius/pubsub/proto"
 	"github.com/vardius/shutdown"
 	"google.golang.org/grpc"
@@ -21,6 +22,7 @@ import (
 
 func main() {
 	ctx := context.Background()
+	logger := golog.New(Env.Verbose)
 	bus := NewMessageBus(Env.QueueSize)
 
 	opts := []grpc_recovery.Option{
@@ -31,12 +33,12 @@ func main() {
 
 	grpcServer := grpc.NewServer(
 		grpc.KeepaliveEnforcementPolicy(keepalive.EnforcementPolicy{
-			MinTime:             5 * time.Minute, // If a client pings more than once every 5 minutes, terminate the connection
-			PermitWithoutStream: true,            // Allow pings even when there are no active streams
+			MinTime:             Env.KeepaliveEnforcementPolicyMinTime,
+			PermitWithoutStream: true, // Allow pings even when there are no active streams
 		}),
 		grpc.KeepaliveParams(keepalive.ServerParameters{
-			Time:    2 * time.Hour,    // Ping the client if it is idle for 2 hours to ensure the connection is still active
-			Timeout: 20 * time.Second, // Wait 20 second for the ping ack before assuming the connection is dead
+			Time:    Env.KeepaliveParamsTime,
+			Timeout: Env.KeepaliveParamsTimeout,
 		}),
 		grpc_middleware.WithUnaryServerChain(
 			grpc_recovery.UnaryServerInterceptor(opts...),
@@ -46,7 +48,7 @@ func main() {
 		),
 	)
 
-	pubsubServer := NewServer(bus)
+	pubsubServer := NewServer(bus, logger)
 	healthServer := grpc_health.NewServer()
 
 	healthServer.SetServingStatus("pubsub", grpc_health_proto.HealthCheckResponse_SERVING)
