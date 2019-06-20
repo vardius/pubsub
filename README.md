@@ -19,11 +19,11 @@ pubsub - gRPC message-oriented middleware on top of [message-bus](https://github
     - [Environment Variables](#environment-variables)
     - [Makefile](#makefile)
   - [Client](https://github.com/vardius/pubsub/tree/master/proto#client)
-  	- [Use in your Go project](https://github.com/vardius/pubsub/tree/master/proto#use-in-your-go-project)
-	  - [Publish](https://github.com/vardius/pubsub/tree/master/proto#publish)
-	  - [Subscribe](https://github.com/vardius/pubsub/tree/master/proto#subscribe)
+    - [Use in your Go project](https://github.com/vardius/pubsub/tree/master/proto#use-in-your-go-project)
+      - [Publish](https://github.com/vardius/pubsub/tree/master/proto#publish)
+      - [Subscribe](https://github.com/vardius/pubsub/tree/master/proto#subscribe)
   - [Protocol Buffers](https://github.com/vardius/pubsub/tree/master/proto#protocol-buffers)
-	- [Generating client and server code](https://github.com/vardius/pubsub/tree/master/proto#generating-client-and-server-code)
+  - [Generating client and server code](https://github.com/vardius/pubsub/tree/master/proto#generating-client-and-server-code)
 <!-- tocstop -->
 </details>
 
@@ -52,17 +52,33 @@ docker run --name my-pubsub -e QUEUE_BUFFER_SIZE=100 -d vardius/pubsub:tag
 
 ### Environment Variables
 
-#### `HOST`
+#### `HOST` (string)
 
 This is optional variable, sets gRPC server host value. Default to `0.0.0.0`
 
-#### `PORT`
+#### `PORT` (int)
 
 This is optional variable, sets gRPC server port value. Default to `9090`
 
-#### `QUEUE_BUFFER_SIZE`
+#### `QUEUE_BUFFER_SIZE` (int)
 
-This is optional variable, sets message bus queue buffer size. Default to number of CPUs`
+This is optional variable, sets buffered channel length per subscriber. Default 0, which evaluates to `runtime.NumCPU()`.
+
+#### `KEEPALIVE_MIN_TIME` (nanoseconds)
+
+This is optional variable, if a client pings more than once every 5 minutes (default), terminate the connection.
+
+#### `KEEPALIVE_TIME` (nanoseconds)
+
+This is optional variable, ping the client if it is idle for 2 hours (default) to ensure the connection is still active.
+
+#### `KEEPALIVE_TIMEOUT` (nanoseconds)
+
+This is optional variable, wait 20 second (default) for the ping ack before assuming the connection is dead.
+
+#### `LOG_VERBOSE_LEVEL` (int)
+
+This is optional variable, Verbose level. -1 = Disabled, 0 = Critical, 1 = Error, 2 = Warning, 3 = Info, 4 = Debug. Default 4.
 
 ### Makefile
 

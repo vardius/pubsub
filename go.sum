@@ -36,6 +36,7 @@ github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1
 github.com/rs/cors v1.6.0/go.mod h1:gFx+x8UowdsKA9AchylcLynDq+nNFfI8FkUZdN/jGCU=
 github.com/vardius/go-api-boilerplate v0.0.0-20190607064152-6c84ff023ffc/go.mod h1:tVZ62IB21LLcn9wBGdWsAsUMye3+GnlQKvdxLKHLlQg=
 github.com/vardius/golog v1.0.2/go.mod h1:S2DSwaLMLgNmAAv9qn4nblHMBNA8/cHXFenmtIiZaHM=
+github.com/vardius/golog v1.0.3 h1:fZQAA2dREGY+DeDJwoiBrr94MxNSVz5LiCGUCRLXHIM=
 github.com/vardius/golog v1.0.3/go.mod h1:mqo2VxWBUb0syu3GDSU1JOnHsY4IjyBcPfTzGE4bMqU=
 github.com/vardius/gorouter/v4 v4.0.0/go.mod h1:ElncBYcYpD0saXIMhv1acJ/i9m34ZYBBdeHcisPqC7E=
 github.com/vardius/message-bus v1.1.3 h1:z7DBtOugTyjlJWxpI+s/CL9iO8Z89pi4/qTo7P3px78=
