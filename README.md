@@ -54,31 +54,31 @@ docker run --name my-pubsub -e QUEUE_BUFFER_SIZE=100 -d vardius/pubsub:tag
 
 #### `HOST` (string)
 
-This is optional variable, sets gRPC server host value. Default to `0.0.0.0`
+This is optional variable, sets gRPC server host value. **Default `0.0.0.0`**
 
 #### `PORT` (int)
 
-This is optional variable, sets gRPC server port value. Default to `9090`
+This is optional variable, sets gRPC server port value. **Default `9090`**
 
 #### `QUEUE_BUFFER_SIZE` (int)
 
-This is optional variable, sets buffered channel length per subscriber. Default 0, which evaluates to `runtime.NumCPU()`.
+This is optional variable, sets buffered channel length per subscriber. **Default 0**, which evaluates to `runtime.NumCPU()`.
 
 #### `KEEPALIVE_MIN_TIME` (nanoseconds)
 
-This is optional variable, if a client pings more than once every 5 minutes (default), terminate the connection.
+This is optional variable, if a client pings more than once every **5 minutes (default)**, terminate the connection.
 
 #### `KEEPALIVE_TIME` (nanoseconds)
 
-This is optional variable, ping the client if it is idle for 2 hours (default) to ensure the connection is still active.
+This is optional variable, ping the client if it is idle for **2 hours (default)** to ensure the connection is still active.
 
 #### `KEEPALIVE_TIMEOUT` (nanoseconds)
 
-This is optional variable, wait 20 second (default) for the ping ack before assuming the connection is dead.
+This is optional variable, wait **20 second (default)** for the ping ack before assuming the connection is dead.
 
 #### `LOG_VERBOSE_LEVEL` (int)
 
-This is optional variable, Verbose level. -1 = Disabled, 0 = Critical, 1 = Error, 2 = Warning, 3 = Info, 4 = Debug. Default 3 (Info).
+This is optional variable, Verbose level. `-1` = Disabled, `0` = Critical, `1` = Error, `2` = Warning, `3` = Info, `4` = Debug. **Default 3 (Info)**.
 
 ### Makefile
 
