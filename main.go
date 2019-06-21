@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"time"
@@ -27,7 +26,8 @@ func main() {
 
 	opts := []grpc_recovery.Option{
 		grpc_recovery.WithRecoveryHandlerContext(func(ctx context.Context, rec interface{}) (err error) {
-			return grpc.Errorf(codes.Internal, "Recovered in f %v", rec)
+			logger.Error(ctx, "Recovered in f %v", rec)
+			return grpc.Errorf(codes.Internal, "Recovered from panic")
 		}),
 	}
 
@@ -58,25 +58,26 @@ func main() {
 
 	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", Env.Host, Env.Port))
 	if err != nil {
-		log.Fatalf("tcp failed to listen %s:%d\n%v\n", Env.Host, Env.Port, err)
+		logger.Critical(ctx, "tcp failed to listen %s:%d\n%v\n", Env.Host, Env.Port, err)
+		os.Exit(1)
 	}
 
 	stop := func() {
 		ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 		defer cancel()
 
-		log.Print(ctx, "shutting down...\n")
+		logger.Info(ctx, "shutting down...\n")
 
 		grpcServer.GracefulStop()
 	}
 
 	go func() {
-		log.Printf("failed to serve: %v\n", grpcServer.Serve(lis))
+		logger.Critical(ctx, "failed to serve: %v\n", grpcServer.Serve(lis))
 		stop()
 		os.Exit(1)
 	}()
 
-	log.Printf("tcp running at %s:%d\n", Env.Host, Env.Port)
+	logger.Info(ctx, "tcp running at %s:%d\n", Env.Host, Env.Port)
 
 	shutdown.GracefulStop(stop)
 }
