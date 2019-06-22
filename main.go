@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"time"
@@ -23,8 +22,7 @@ import (
 func main() {
 	ctx := context.Background()
 
-	log.Printf("Env %v", Env)
-	logger := golog.New(golog.Verbose(Env.Verbose))
+	logger := golog.NewConsoleLogger(Env.Verbose)
 	bus := NewMessageBus(Env.QueueSize)
 
 	opts := []grpc_recovery.Option{
