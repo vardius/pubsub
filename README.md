@@ -67,17 +67,17 @@ This is optional variable, sets buffered channel length per subscriber. **Defaul
 #### `KEEPALIVE_MIN_TIME`
 
 This is optional variable, if a client pings more than once every **5 minutes (default)**, terminate the connection.
-ParseDuration parses a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
+ParseDuration parses a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as `300ms`, `-1.5h` or `2h45m`. Valid time units are `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`
 
 #### `KEEPALIVE_TIME` (nanoseconds)
 
 This is optional variable, ping the client if it is idle for **2 hours (default)** to ensure the connection is still active.
-ParseDuration parses a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms",
+ParseDuration parses a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as `300ms`, `-1.5h` or `2h45m`. Valid time units are `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`
 
 #### `KEEPALIVE_TIMEOUT` (nanoseconds)
 
 This is optional variable, wait **20 second (default)** for the ping ack before assuming the connection is dead.
-ParseDuration parses a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms",
+ParseDuration parses a duration string. A duration string is a possibly signed sequence of decimal numbers, each with optional fraction and a unit suffix, such as `300ms`, `-1.5h` or `2h45m`. Valid time units are `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`
 
 #### `LOG_VERBOSE_LEVEL` (int)
 
