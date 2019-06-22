@@ -3,7 +3,6 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/caarlos0/env/v6 v6.0.0 h1:NZt6FAoB8ieKO5lEwRdwCzYxWFx7ZYF2R7UcoyaWtyc=
 github.com/caarlos0/env/v6 v6.0.0/go.mod h1:+wdyOmtjoZIW2GJOc2OYa5NoOFuWD/bIpWqm30NgtRk=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
-github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/mock v1.1.1/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
@@ -15,13 +14,11 @@ github.com/golang/protobuf v1.3.1/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5y
 github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
 github.com/grpc-ecosystem/go-grpc-middleware v1.0.1-0.20190104160321-4832df01553a h1:2rNI7/w3PcLz1T96hzGaFRhtKwtB28ELZIrK5oW/euE=
 github.com/grpc-ecosystem/go-grpc-middleware v1.0.1-0.20190104160321-4832df01553a/go.mod h1:FiyG127CGDf3tlThmgyCl78X/SZQqEOJBCDaAfeWzPs=
-github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
-github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
-github.com/vardius/golog v1.0.3 h1:fZQAA2dREGY+DeDJwoiBrr94MxNSVz5LiCGUCRLXHIM=
-github.com/vardius/golog v1.0.3/go.mod h1:mqo2VxWBUb0syu3GDSU1JOnHsY4IjyBcPfTzGE4bMqU=
+github.com/vardius/golog v1.0.4 h1:Gwln2pgHFoTgtIFcZv3gzggvCqZRs2XKZLFi8BqyLyU=
+github.com/vardius/golog v1.0.4/go.mod h1:mqo2VxWBUb0syu3GDSU1JOnHsY4IjyBcPfTzGE4bMqU=
 github.com/vardius/message-bus v1.1.3 h1:z7DBtOugTyjlJWxpI+s/CL9iO8Z89pi4/qTo7P3px78=
 github.com/vardius/message-bus v1.1.3/go.mod h1:uB1KIevXwx4nP8bubF+jr4c5JpXMKf3nm9hTvqtEVzc=
 github.com/vardius/shutdown v1.0.0 h1:eu9BwdoiujMP8Axrh4jwYpNcqXGLPSwNx4EI4S9VHKo=
