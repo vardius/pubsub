@@ -7,10 +7,8 @@ import (
 	"github.com/caarlos0/env/v6"
 )
 
-var (
-	// Env stores environment values
-	Env *environment
-)
+// Env stores environment values
+var Env *environment
 
 type environment struct {
 	// Host gRPC tcp host value. Default 0.0.0.0
