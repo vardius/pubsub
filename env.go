@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/caarlos0/env/v6"
-	"github.com/vardius/golog"
 )
 
 // Env stores environment values
@@ -24,8 +23,8 @@ type environment struct {
 	KeepaliveParamsTime time.Duration `env:"KEEPALIVE_TIME" envDefault:"2h"`
 	// KeepaliveParamsTimeout (nanoseconds)  Wait 20 second (default) for the ping ack before assuming the connection is dead.
 	KeepaliveParamsTimeout time.Duration `env:"KEEPALIVE_TIMEOUT" envDefault:"20s"`
-	// Verbose level. -1 = Disabled, 0 = Critical, 1 = Error, 2 = Warning, 3 = Info, 4 = Debug. Default 4.
-	Verbose golog.Verbose `env:"LOG_VERBOSE_LEVEL" envDefault:"3"`
+	// VerboseLevel level. -1 = Disabled, 0 = Critical, 1 = Error, 2 = Warning, 3 = Info, 4 = Debug. Default 4.
+	VerboseLevel int `env:"LOG_VERBOSE_LEVEL" envDefault:"3"`
 }
 
 func init() {

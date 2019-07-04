@@ -19,10 +19,31 @@ import (
 	"google.golang.org/grpc/keepalive"
 )
 
+func levelToVerbosity(level int) golog.Verbose {
+	switch level {
+	case -1:
+		return golog.Disabled
+	case 0:
+		return golog.Critical
+	case 1:
+		return golog.Critical | golog.Error
+	case 2:
+		return golog.Critical | golog.Error | golog.Warning
+	case 3:
+		return golog.Critical | golog.Error | golog.Warning | golog.Info
+	case 4:
+		return golog.Critical | golog.Error | golog.Warning | golog.Info | golog.Debug
+	}
+
+	panic("Invalid verbosity level")
+}
+
 func main() {
 	ctx := context.Background()
 
-	logger := golog.NewConsoleLogger(Env.Verbose)
+	logger := golog.NewConsoleLogger()
+	logger.SetVerbosity(levelToVerbosity(Env.VerboseLevel))
+
 	bus := NewMessageBus(Env.QueueSize)
 
 	opts := []grpc_recovery.Option{
