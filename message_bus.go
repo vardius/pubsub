@@ -22,25 +22,25 @@ type MessageBus interface {
 
 // NewMessageBus creates in memory command bus
 func NewMessageBus(maxConcurrentCalls int) MessageBus {
-	return &loggableMessageBus{messagebus.New(maxConcurrentCalls)}
+	return &bus{messagebus.New(maxConcurrentCalls)}
 }
 
-type loggableMessageBus struct {
+type bus struct {
 	bus messagebus.MessageBus
 }
 
-func (b *loggableMessageBus) Publish(ctx context.Context, topic string, p Payload) {
+func (b *bus) Publish(ctx context.Context, topic string, p Payload) {
 	b.bus.Publish(topic, ctx, p)
 }
 
-func (b *loggableMessageBus) Subscribe(topic string, fn Handler) error {
+func (b *bus) Subscribe(topic string, fn Handler) error {
 	return b.bus.Subscribe(topic, fn)
 }
 
-func (b *loggableMessageBus) Unsubscribe(topic string, fn Handler) error {
+func (b *bus) Unsubscribe(topic string, fn Handler) error {
 	return b.bus.Unsubscribe(topic, fn)
 }
 
-func (b *loggableMessageBus) Close(topic string) {
+func (b *bus) Close(topic string) {
 	b.bus.Close(topic)
 }
