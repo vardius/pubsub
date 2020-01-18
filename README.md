@@ -42,7 +42,8 @@ We are using the github [issue tracker](https://github.com/vardius/pubsub/issues
 
 # HOW TO USE
 
-## [Docker](https://hub.docker.com/r/vardius/pubsub)
+## [Docker Hub](https://hub.docker.com/r/vardius/pubsub)
+## [Github Package Registry](https://github.com/vardius/pubsub/packages/108226)
 
 ### How to use this image
 
