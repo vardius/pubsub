@@ -43,7 +43,26 @@ We are using the github [issue tracker](https://github.com/vardius/pubsub/issues
 # HOW TO USE
 
 ## [Docker Hub](https://hub.docker.com/r/vardius/pubsub)
+
+Pull image from the command line:
+```bash
+$ docker pull vardius/pubsub:latest
+```
+Use as base image in DockerFile:
+```Dockerfile
+FROM vardius/pubsub:latest
+```
+
 ## [Github Package Registry](https://github.com/vardius/pubsub/packages/108226)
+
+Pull image from the command line:
+```bash
+$ docker pull docker.pkg.github.com/vardius/pubsub/pubsub:latest
+```
+Use as base image in DockerFile:
+```Dockerfile
+FROM docker.pkg.github.com/vardius/pubsub/pubsub:latest
+```
 
 ### How to use this image
 
