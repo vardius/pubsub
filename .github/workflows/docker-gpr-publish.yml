@@ -4,6 +4,8 @@ on:
     types: [published]
 jobs:
   build:
+    env:
+      IMAGE_NAME: pubsub
     runs-on: ubuntu-latest
     steps:
     - name: Copy Files
@@ -14,12 +16,8 @@ jobs:
     - name: Docker login
       run: docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }}
     - name: Build image
-      run: docker build -f Dockerfile --no-cache -t pubsub .
+      run: docker build -f Dockerfile --no-cache -t $IMAGE_NAME .
     - name: Publish latest
-      run: |
-        echo "docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:latest"
-        docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:latest
+      run: docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:latest
     - name: Publish tag
-      run: |
-        echo "docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:${{ steps.vars.outputs.tag }}"
-        docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:${{ steps.vars.outputs.tag }}
+      run: docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:${{ steps.vars.outputs.tag }}
