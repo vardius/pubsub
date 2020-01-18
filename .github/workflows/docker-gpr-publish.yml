@@ -23,5 +23,5 @@ jobs:
         docker tag $IMAGE_NAME "docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:${{ steps.vars.outputs.tag }}"
     - name: Publish image
       run: |
-        docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/IMAGE_NAME:latest"
-        docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/IMAGE_NAME:${{ steps.vars.outputs.tag }}"
+        docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:latest"
+        docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:${{ steps.vars.outputs.tag }}"
