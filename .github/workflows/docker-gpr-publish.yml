@@ -19,8 +19,8 @@ jobs:
       run: docker build -f Dockerfile --no-cache -t $IMAGE_NAME .
     - name: Tag image
       run: |
-        docker tag "$IMAGE_NAME docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:latest"
-        docker tag "$IMAGE_NAME docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:${{ steps.vars.outputs.tag }}"
+        docker tag $IMAGE_NAME "docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:latest"
+        docker tag $IMAGE_NAME "docker.pkg.github.com/$GITHUB_REPOSITORY/$IMAGE_NAME:${{ steps.vars.outputs.tag }}"
     - name: Publish image
       run: |
         docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/IMAGE_NAME:latest"
