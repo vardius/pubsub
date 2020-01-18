@@ -11,14 +11,15 @@ jobs:
     - name: Set tag
       id: vars
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Docker login
+      run: docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }}
     - name: Build image
-      run: |
-        echo "docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }}"
-        docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }}
-        echo "Created tag ${{ steps.vars.outputs.tag }}"
-    - name: Publish image
+      run: docker build -f Dockerfile --no-cache -t pubsub .
+    - name: Publish latest
       run: |
         echo "docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:latest"
         docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:latest
+    - name: Publish tag
+      run: |
         echo "docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:${{ steps.vars.outputs.tag }}"
         docker tag pubsub docker.pkg.github.com/$GITHUB_REPOSITORY:${{ steps.vars.outputs.tag }}
