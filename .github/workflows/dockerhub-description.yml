@@ -1,5 +1,7 @@
 name: Update Docker Hub Description
-on: release
+on:
+  release:
+    types: [published]
 jobs:
   dockerHubDescription:
     runs-on: ubuntu-latest
@@ -10,4 +12,4 @@ jobs:
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        DOCKERHUB_REPOSITORY: peterevans/dockerhub-description
+        DOCKERHUB_REPOSITORY: vardius/pubsub
