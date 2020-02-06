@@ -1,4 +1,4 @@
-# pubsub
+# 📬 pubsub
 
 [![Build Status](https://travis-ci.org/vardius/pubsub.svg?branch=master)](https://travis-ci.org/vardius/pubsub)
 [![Go Report Card](https://goreportcard.com/badge/github.com/vardius/pubsub)](https://goreportcard.com/report/github.com/vardius/pubsub)
