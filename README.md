@@ -8,6 +8,8 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/vardius/pubsub.svg)](https://hub.docker.com/r/vardius/pubsub/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vardius/pubsub/blob/master/LICENSE.md)
 
+<img align="right" height="180px" src="https://github.com/vardius/gorouter/blob/master/website/src/static/img/logo.png?raw=true" alt="logo" />
+
 pubsub - gRPC message-oriented middleware on top of [message-bus](https://github.com/vardius/message-bus), event ingestion and delivery system.
 
 <details>
@@ -29,7 +31,7 @@ pubsub - gRPC message-oriented middleware on top of [message-bus](https://github
 <!-- tocstop -->
 </details>
 
-# ABOUT
+# 📖 ABOUT
 
 Contributors:
 
@@ -40,9 +42,9 @@ Want to contribute ? Feel free to send pull requests!
 Have problems, bugs, feature ideas?
 We are using the github [issue tracker](https://github.com/vardius/pubsub/issues) to manage them.
 
-# HOW TO USE
+# 🚏 HOW TO USE
 
-## [Docker Hub](https://hub.docker.com/r/vardius/pubsub)
+## 🐳 [Docker Hub](https://hub.docker.com/r/vardius/pubsub)
 
 Pull image from the command line:
 ```bash
@@ -123,10 +125,8 @@ docker-release                 Docker release - build, tag and push the containe
 
 See [proto package](https://github.com/vardius/pubsub/blob/master/proto) for details.
 
-## License
+## 📜 [License](LICENSE.md)
 
-This package is released under the MIT license. See the complete license in the package:
-
-[LICENSE](LICENSE.md)
+This package is released under the MIT license. See the complete license in the package
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvardius%2Fpubsub.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvardius%2Fpubsub?ref=badge_large)
