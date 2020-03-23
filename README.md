@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/vardius/pubsub)](https://goreportcard.com/report/github.com/vardius/pubsub)
 [![codecov](https://codecov.io/gh/vardius/pubsub/branch/master/graph/badge.svg)](https://codecov.io/gh/vardius/pubsub)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvardius%2Fpubsub.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvardius%2Fpubsub?ref=badge_shield)
-[![](https://godoc.org/github.com/vardius/pubsub?status.svg)](http://godoc.org/github.com/vardius/pubsub)
+[![](https://godoc.org/github.com/vardius/pubsub?status.svg)](https://pkg.go.dev/github.com/vardius/pubsub)
 [![Docker Pulls](https://img.shields.io/docker/pulls/vardius/pubsub.svg)](https://hub.docker.com/r/vardius/pubsub/)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vardius/pubsub/blob/master/LICENSE.md)
 
