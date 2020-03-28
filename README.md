@@ -12,8 +12,6 @@
 
 pubsub - gRPC message-oriented middleware on top of [message-bus](https://github.com/vardius/message-bus), event ingestion and delivery system.
 
-See also [pushpull](https://github.com/vardius/pushpull).
-
 <details>
   <summary>Table of Contents</summary>
 
@@ -34,6 +32,9 @@ See also [pushpull](https://github.com/vardius/pushpull).
 </details>
 
 # 📖 ABOUT
+
+[pubsub](https://github.com/vardius/pubsub) allows you to publish even that is delivered to all subscribed clients. 
+See also [pushpull](https://github.com/vardius/pushpull).
 
 Contributors:
 
