@@ -1,7 +1,10 @@
 /*
 Package proto contains protocol buffers for gRPC pubsub event ingestion and delivery system.
+
 # Using gRPC client
+
 ## Publish example:
+
 	package main
 
 	import (
@@ -42,7 +45,9 @@ Package proto contains protocol buffers for gRPC pubsub event ingestion and deli
 			Payload: []byte("Hello you!"),
 		})
 	}
+	
 ## Subscribe example:
+
 	package main
 
 	import (
