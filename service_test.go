@@ -8,23 +8,27 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	bus := NewMessageBus(runtime.NumCPU())
+	s := newService(runtime.NumCPU())
 
-	if bus == nil {
+	if s == nil {
 		t.Fail()
 	}
 }
 
 func TestSubscribePublish(t *testing.T) {
-	bus := NewMessageBus(runtime.NumCPU())
+	s := newService(runtime.NumCPU())
 	ctx := context.Background()
 	c := make(chan error)
 
-	bus.Subscribe("topic", func(ctx context.Context, _ []byte) {
+	handler := func(ctx context.Context, _ []byte) {
 		c <- nil
-	})
+	}
 
-	bus.Publish(ctx, "topic", []byte("ok"))
+	if err := s.Subscribe("topic", handler); err != nil {
+		t.Fatal(err)
+	}
+
+	s.Publish(ctx, "topic", []byte("ok"))
 
 	ctxDoneCh := ctx.Done()
 	for {
@@ -42,7 +46,7 @@ func TestSubscribePublish(t *testing.T) {
 }
 
 func TestUnsubscribe(t *testing.T) {
-	bus := NewMessageBus(runtime.NumCPU())
+	s := newService(runtime.NumCPU())
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
@@ -50,10 +54,14 @@ func TestUnsubscribe(t *testing.T) {
 		t.Fail()
 	}
 
-	bus.Subscribe("topic", handler)
-	bus.Unsubscribe("topic", handler)
+	if err := s.Subscribe("topic", handler); err != nil {
+		t.Fatal(err)
+	}
+	if err := s.Unsubscribe("topic", handler); err != nil {
+		t.Fatal(err)
+	}
 
-	bus.Publish(ctx, "topic", []byte("ok"))
+	s.Publish(ctx, "topic", []byte("ok"))
 
 	ctxDoneCh := ctx.Done()
 	for {

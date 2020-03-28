@@ -6,22 +6,23 @@ import (
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/vardius/golog"
-	pubsub_proto "github.com/vardius/pubsub/proto"
+
+	"github.com/vardius/pubsub/v2/proto"
 )
 
 type server struct {
-	bus    MessageBus
+	bus    Service
 	logger golog.Logger
 }
 
-// NewServer returns new messagebus server object
-func NewServer(bus MessageBus, logger golog.Logger) pubsub_proto.MessageBusServer {
+// newServer returns new pub/sub server object
+func newServer(bus Service, logger golog.Logger) proto.PubSubServer {
 	return &server{bus, logger}
 }
 
 // Publish publishes message payload to all topic handlers
-func (s *server) Publish(ctx context.Context, r *pubsub_proto.PublishRequest) (*empty.Empty, error) {
-	s.logger.Debug(ctx, "gRPC Server|Publish] %s %s", r.GetTopic(), r.GetPayload())
+func (s *server) Publish(ctx context.Context, r *proto.PublishRequest) (*empty.Empty, error) {
+	s.logger.Debug(ctx, "Publish: %s %s", r.GetTopic(), r.GetPayload())
 
 	s.bus.Publish(ctx, r.GetTopic(), r.GetPayload())
 
@@ -32,16 +33,16 @@ func (s *server) Publish(ctx context.Context, r *pubsub_proto.PublishRequest) (*
 	return new(empty.Empty), nil
 }
 
-// Subscribe subscribes to a topic
-// Will unsubscribe when stream.Send returns error
-func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto.MessageBus_SubscribeServer) error {
+// Subscribe subscribes to a topic,
+// will unsubscribe when stream.Send returns error
+func (s *server) Subscribe(r *proto.SubscribeRequest, stream proto.PubSub_SubscribeServer) error {
 	errCh := make(chan error)
 	defer close(errCh)
 
 	handler := func(ctx context.Context, payload Payload) {
-		s.logger.Debug(ctx, "gRPC Server|Subscribe] %s %s", r.GetTopic(), payload)
+		s.logger.Debug(ctx, "Subscribe: %s %s", r.GetTopic(), payload)
 
-		err := stream.Send(&pubsub_proto.SubscribeResponse{
+		err := stream.Send(&proto.SubscribeResponse{
 			Payload: payload,
 		})
 
@@ -52,21 +53,25 @@ func (s *server) Subscribe(r *pubsub_proto.SubscribeRequest, stream pubsub_proto
 
 	ctx := context.Background()
 
-	s.logger.Info(ctx, "gRPC Server|Subscribe] %s", r.GetTopic())
+	s.logger.Info(ctx, "Subscribe: %s", r.GetTopic())
 
-	s.bus.Subscribe(r.GetTopic(), handler)
+	if err := s.bus.Subscribe(r.GetTopic(), handler); err != nil {
+		return err
+	}
 
 	err := <-errCh
 
-	s.bus.Unsubscribe(r.GetTopic(), handler)
+	if err := s.bus.Unsubscribe(r.GetTopic(), handler); err != nil {
+		return err
+	}
 
 	if err == io.EOF {
-		s.logger.Info(ctx, "gRPC Server|Unsubscribe] %s - Stream closed, no more input is available", r.GetTopic())
+		s.logger.Info(ctx, "Unsubscribe: %s - Stream closed, no more input is available", r.GetTopic())
 
 		return nil
 	}
 
-	s.logger.Info(ctx, "gRPC Server|Unsubscribe] %s - %s", r.GetTopic(), err.Error())
+	s.logger.Info(ctx, "Unsubscribe: %s - %s", r.GetTopic(), err.Error())
 
 	return err
 }

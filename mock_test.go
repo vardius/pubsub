@@ -9,8 +9,9 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/empty"
-	pubsub_mock "github.com/vardius/pubsub/mock_proto"
-	pubsub_proto "github.com/vardius/pubsub/proto"
+
+	pubsub_mock "github.com/vardius/pubsub/v2/mock_proto"
+	pubsub_proto "github.com/vardius/pubsub/v2/proto"
 )
 
 var topic = "my-topic"
@@ -27,24 +28,24 @@ func TestServer(t *testing.T) {
 	defer ctrl.Finish()
 
 	// Create mock for the stream returned by Subscribe
-	stream := pubsub_mock.NewMockMessageBus_SubscribeClient(ctrl)
+	stream := pubsub_mock.NewMockPubSub_SubscribeClient(ctrl)
 	// Set expectation on receiving.
 	stream.EXPECT().Recv().Return(subscribeResponse, nil)
 	stream.EXPECT().CloseSend().Return(nil)
 
 	// Create mock for the client interface.
-	client := pubsub_mock.NewMockMessageBusClient(ctrl)
+	client := pubsub_mock.NewMockPubSubClient(ctrl)
 	// Set expectation on Publish
 	client.EXPECT().Publish(gomock.Any(), publishRequest).Return(emptyResponse, nil)
 	// Set expectation on Subscribe
 	client.EXPECT().Subscribe(gomock.Any(), subscribeRequest).Return(stream, nil)
 
-	if err := testPubsub(client); err != nil {
+	if err := testPubSub(client); err != nil {
 		t.Fatalf("Test failed: %v", err)
 	}
 }
 
-func testPubsub(client pubsub_proto.MessageBusClient) error {
+func testPubSub(client pubsub_proto.PubSubClient) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 

@@ -10,13 +10,14 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/vardius/golog"
-	pubsub_proto "github.com/vardius/pubsub/proto"
 	"github.com/vardius/shutdown"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	grpc_health "google.golang.org/grpc/health"
 	grpc_health_proto "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/keepalive"
+
+	"github.com/vardius/pubsub/v2/proto"
 )
 
 func levelToVerbosity(level int) golog.Verbose {
@@ -44,7 +45,7 @@ func main() {
 	logger := golog.NewConsoleLogger()
 	logger.SetVerbosity(levelToVerbosity(Env.VerboseLevel))
 
-	bus := NewMessageBus(Env.QueueSize)
+	service := newService(Env.QueueSize)
 
 	opts := []grpc_recovery.Option{
 		grpc_recovery.WithRecoveryHandlerContext(func(ctx context.Context, rec interface{}) (err error) {
@@ -70,12 +71,12 @@ func main() {
 		),
 	)
 
-	pubsubServer := NewServer(bus, logger)
+	pubsubServer := newServer(service, logger)
 	healthServer := grpc_health.NewServer()
 
 	healthServer.SetServingStatus("pubsub", grpc_health_proto.HealthCheckResponse_SERVING)
 
-	pubsub_proto.RegisterMessageBusServer(grpcServer, pubsubServer)
+	proto.RegisterPubSubServer(grpcServer, pubsubServer)
 	grpc_health_proto.RegisterHealthServer(grpcServer, healthServer)
 
 	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", Env.Host, Env.Port))

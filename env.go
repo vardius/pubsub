@@ -29,7 +29,9 @@ type environment struct {
 
 func init() {
 	Env = &environment{}
-	env.Parse(Env)
+	if err := env.Parse(Env); err != nil {
+		panic(err)
+	}
 
 	if Env.QueueSize == 0 {
 		Env.QueueSize = runtime.NumCPU()

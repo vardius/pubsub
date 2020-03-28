@@ -1,5 +1,5 @@
 /*
-Package proto contains protocol buffers for gRPC messagebus event ingestion and delivery system.
+Package proto contains protocol buffers for gRPC pubsub event ingestion and delivery system.
 # Using gRPC client
 ## Publish example:
 	package main
@@ -12,7 +12,7 @@ Package proto contains protocol buffers for gRPC messagebus event ingestion and 
 
 		"google.golang.org/grpc"
 		"google.golang.org/grpc/keepalive"
-		pubsub_proto "github.com/vardius/pubsub/proto"
+		"github.com/vardius/pubsub/v2/proto"
 	)
 
 	func main() {
@@ -35,9 +35,9 @@ Package proto contains protocol buffers for gRPC messagebus event ingestion and 
 		}
 		defer conn.Close()
 
-		client := pubsub_proto.NewMessageBusClient(pubsubConn)
+		client := proto.NewPubSubClient(conn)
 
-		client.Publish(ctx, &pubsub_proto.PublishRequest{
+		client.Publish(ctx, &proto.PublishRequest{
 			Topic:   "my-topic",
 			Payload: []byte("Hello you!"),
 		})
@@ -53,7 +53,7 @@ Package proto contains protocol buffers for gRPC messagebus event ingestion and 
 
 		"google.golang.org/grpc"
 		"google.golang.org/grpc/keepalive"
-		pubsub_proto "github.com/vardius/pubsub/proto"
+		"github.com/vardius/pubsub/v2/proto"
 	)
 
 	func main() {
@@ -76,9 +76,9 @@ Package proto contains protocol buffers for gRPC messagebus event ingestion and 
 		}
 		defer conn.Close()
 
-		client := pubsub_proto.NewMessageBusClient(pubsubConn)
+		client := proto.NewPubSubClient(conn)
 
-		stream, err := client.Subscribe(ctx, &pubsub_proto.SubscribeRequest{
+		stream, err := client.Subscribe(ctx, &proto.SubscribeRequest{
 			Topic: "my-topic",
 		})
 		if err != nil {

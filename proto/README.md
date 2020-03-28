@@ -38,7 +38,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
-	pubsub_proto "github.com/vardius/pubsub/proto"
+	"github.com/vardius/pubsub/v2/proto"
 )
 
 func main() {
@@ -61,9 +61,9 @@ func main() {
     }
     defer conn.Close()
 
-	client := pubsub_proto.NewMessageBusClient(pubsubConn)
+	client := proto.NewPubSubClient(conn)
 
-    client.Publish(ctx, &pubsub_proto.PublishRequest{
+    client.Publish(ctx, &proto.PublishRequest{
 		Topic:   "my-topic",
 		Payload: []byte("Hello you!"),
     })
@@ -83,7 +83,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
-	pubsub_proto "github.com/vardius/pubsub/proto"
+	"github.com/vardius/pubsub/v2/proto"
 )
 
 func main() {
@@ -106,9 +106,9 @@ func main() {
     }
     defer conn.Close()
 
-	client := pubsub_proto.NewMessageBusClient(pubsubConn)
+	client := proto.NewPubSubClient(conn)
 
-	stream, err := client.Subscribe(ctx, &pubsub_proto.SubscribeRequest{
+	stream, err := client.Subscribe(ctx, &proto.SubscribeRequest{
 		Topic: "my-topic",
 	})
 	if err != nil {
@@ -130,18 +130,18 @@ func main() {
 
 ### Generating client and server code
 
-To generate the gRPC client and server interfaces from `messagebus.proto` service definition.
+To generate the gRPC client and server interfaces from `pubsub.proto` service definition.
 Use the protocol buffer compiler protoc with a special gRPC Go plugin. For more info [read](https://grpc.io/docs/quickstart/go.html)
 
 From this directory run:
 
 ```bash
-$ protoc --go_out=plugins=grpc:. messagebus.proto
+$ make build
 ```
 
 Running this command generates the following files in this directory:
 
-- `messagebus.pb.go`
+- `pubsub.pb.go`
 
 This contains:
 

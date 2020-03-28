@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "pubsub.grpc.pubsub";
+option java_outer_classname = "PubSubProto";
+
+package proto;
+
+import "google/protobuf/empty.proto";
+
+// PubSub handles event ingestion and delivery system
+service PubSub {
+    rpc Publish (PublishRequest) returns (google.protobuf.Empty);
+    rpc Subscribe (SubscribeRequest) returns (stream SubscribeResponse); // unsubscribe happens on disconnect
+}
+
+// PublishRequest is passed when publishing
+message PublishRequest {
+    string topic = 1;
+    bytes payload = 2;
+}
+
+// SubscribeRequest is passed when subscribing
+message SubscribeRequest {
+    string topic = 1;
+}
+
+// SubscribeResponse object
+message SubscribeResponse {
+    bytes payload = 1;
+}
