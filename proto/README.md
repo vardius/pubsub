@@ -1,6 +1,6 @@
 # Vardius - pubsub
 
-[![](https://godoc.org/github.com/vardius/pubsub/proto?status.svg)](http://godoc.org/github.com/vardius/pubsub/proto)
+[![](https://godoc.org/github.com/vardius/pubsub/proto?status.svg)](https://pkg.go.dev/github.com/vardius/pubsub/proto?tab=doc)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/vardius/pubsub/blob/master/LICENSE.md)
 
 Package proto contains protocol buffer code to populate
