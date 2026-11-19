@@ -1,6 +1,6 @@
 FROM golang:1.13 AS buildenv
 
-LABEL maintainer="Rafał Lorenz <vardius@gmail.com>"
+LABEL maintainer="Rafał Lorenz <support@vardius.dev>"
 
 ENV GO111MODULE=on
 ENV CGO_ENABLED=0
